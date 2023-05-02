@@ -47,42 +47,52 @@ jobs:
       - run:
           name: Run tests
           command: pytest
-  build-and-push-dockerhub:
-    docker:
-      - image: cimg/python:3.10.2
-    steps:
-      - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
-#      - run:
-#          name: Build Docker image
-#          command: docker build -t docker-oc-lettings:0.1 .
-      - run:
-          name: Login to DockerHub
-          command: docker login --username boukaii --password Qjkayb1993
-#      - run:
-#          name: Link to DockerHub
-#          command: docker tag docker-test_variable:0.1 $test_name/oc-lettings-site:$test_variable
-#      - run:
-#          name: push Docker image
-#          command: docker push $DOCKERHUB_USERNAME/oc-lettings-site:$CIRCLE_SHA1
-      - run:
-          name: Login to DockerHub
-          command: docker build -t test1 .
+#  build-and-push-dockerhub:
+#    docker:
+#      - image: cimg/python:3.10.2
+#    steps:
+#      - checkout
+#      - setup_remote_docker:
+#          docker_layer_caching: true
+##      - run:
+##          name: Build Docker image
+##          command: docker build -t docker-oc-lettings:0.1 .
 #      - run:
 #          name: Login to DockerHub
-#          command: docker tag test1 $DOCKER_LOGIN/$DOCKER_REPO:test1
-#                  docker tag local-image:test1 new-repo:test1
+#          command: docker login --username boukaii --password Qjkayb1993
+##      - run:
+##          name: Link to DockerHub
+##          command: docker tag docker-test_variable:0.1 $test_name/oc-lettings-site:$test_variable
+##      - run:
+##          name: push Docker image
+##          command: docker push $DOCKERHUB_USERNAME/oc-lettings-site:$CIRCLE_SHA1
+#      - run:
+#          name: Login to DockerHub
+#          command: docker build -t test1 .
+##      - run:
+##          name: Login to DockerHub
+##          command: docker tag test1 $DOCKER_LOGIN/$DOCKER_REPO:test1
+##                  docker tag local-image:test1 new-repo:test1
+#      - run:
+#          name: Login to DockerHub
+##          command: docker push $test1/$DOCKER_REPO:$CIRCLE_SHA1
+##          command: docker push $DOCKER_USER/$DOCKER_REPO:test1
+#          command: docker push $DOCKER_LOGIN/test1
+##
+##DOCKER_LOGIN
+##DOCKER_PASSWORD
+##
+deploy:
+    machine:
+       image: ubuntu-2004:202201-02
+    steps:
+      - checkout
       - run:
-          name: Login to DockerHub
-#          command: docker push $test1/$DOCKER_REPO:$CIRCLE_SHA1
-#          command: docker push $DOCKER_USER/$DOCKER_REPO:test1
-          command: docker push $DOCKER_LOGIN/test1
-#
-#DOCKER_LOGIN
-#DOCKER_PASSWORD
-#
-
+          name: Create docker and push to docker hub
+          command: |
+            echo "$DOCKER_PASS" | docker login --username $DOCKER_USER --password-stdin
+            docker build -t $DOCKER_USER/python-oc-lettings-fr:${CIRCLE_SHA1:0:7} .
+            docker push $DOCKER_USER/python-oc-lettings-fr:${CIRCLE_SHA1:0:7}
 
 
 
