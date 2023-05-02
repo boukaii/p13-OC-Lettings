@@ -1,38 +1,71 @@
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
-version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
+# Important pour comprendre avec circle ci: https://circleci.com/developer
+version: '2.1'
 orbs:
-  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
-  # Orb commands and jobs help you with common scripting around a language/tool
-  # so you dont have to copy and paste it everywhere.
-  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
-  python: circleci/python@1.5.0
+  # https://circleci.com/developer/orbs/orb/circleci/python
+  python: circleci/python@2.0.2
+  # https://circleci.com/developer/orbs/orb/circleci/docker
+  docker: circleci/docker@2.0.3
+  # https://circleci.com/developer/orbs/orb/circleci/heroku
+  heroku: circleci/heroku@1.2.6
 
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
+# Remarque: pas le droit au caractère &
 jobs:
-  build_and_test:
-    docker:
-      - image: cimg/python:3.10.1
+  lint_tests:
+    # image officielle Circle CI CIMG Python Docker
+    executor: python/default
     steps:
       - checkout
+      - python/install-packages:
+          pkg-manager: pip
       - run:
-          name: Install Django and dependencies
-          command: |
-           pip install -r requirements.txt
+          name: Linting
+          command: flake8
       - run:
-          name: Run tests and linting
+          name: Tests (pytest)
+          command: pytest
+  deploy_heroku:
+    executor: heroku/default
+    steps:
+      - checkout
+      - heroku/install
+      - run:
+          name: Configuration des variables
+          # Attention DEBUG prend la valeut 'False' et non False
+          # Astuce dans settings
           command: |
-            pytest
-            flake8
+            heroku config:set DEBUG_COLLECTSTATIC=1 -a $HEROKU_APP_NAME
+            heroku config:set SECRET_KEY=$SECRET_KEY -a $HEROKU_APP_NAME
+            heroku config:set SENTRY_DSN=$SENTRY_DSN -a $HEROKU_APP_NAME
+            heroku config:set DEBUG=False -a $HEROKU_APP_NAME
+      - heroku/deploy-via-git
 
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  main:
     jobs:
-      - build-and-test
+      - lint_tests
+      - docker/publish:
+          # le format ${VARIABLE,,} met la variable en minuscule
+          # obligatoire pour docker
+          # plus d'info: https://wiki.bash-hackers.org/syntax/pe
+          # Les variables built-in: https://circleci.com/docs/2.0/variables/
+          image: ${CIRCLE_PROJECT_USERNAME,,}/p13
+          # Remarques:
+          # le tag est automatiquement mis avec la valeur $CIRCLE_SHA1
+          # Dans les paramètre du projet dans circleci définir les variables:
+          #   DOCKER_LOGIN
+          #   DOCKER_PASSWORD
+          requires:
+            - lint_tests
+          filters:
+            branches:
+              only: main
+      - deploy_heroku:
+          # Penser au Procfile
+          requires:
+            - docker/publish
+          # https://support.circleci.com/hc/en-us/articles/115015953868-Filter-workflows-by-branch-
+          filters:
+            branches:
+              only: main
+# Pour voir d'autres manières pour s'authentifier sur docker hub
+#       https://circleci.com/docs/2.0/private-images/
