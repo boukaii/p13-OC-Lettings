@@ -177,13 +177,13 @@ jobs:
           command: docker build -t docker-oc-lettings:0.1 .
       - run:
           name: Login to DockerHub
-          command: docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
+          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
       - run:
           name: Link to DockerHub
-          command: docker tag docker-oc-lettings:0.1 $DOCKERHUB_USERNAME/oc-lettings-site:$CIRCLE_SHA1
+          command: docker tag docker-oc-lettings:0.1 $DOCKERHUB_LOGIN/oc-lettings-site:$CIRCLE_SHA1
       - run:
           name: push Docker image
-          command: docker push $DOCKERHUB_USERNAME/test1:$CIRCLE_SHA1
+          command: docker push $DOCKERHUB_LOGIN/test1:$CIRCLE_SHA1
 
 
 
