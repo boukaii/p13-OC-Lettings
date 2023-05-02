@@ -67,11 +67,14 @@ jobs:
 #          name: push Docker image
 #          command: docker push $DOCKERHUB_USERNAME/oc-lettings-site:$CIRCLE_SHA1
       - run:
-        command: docker build -t image_oc_lettings_site .
+          name: Login to DockerHub
+          command: docker build -t image_oc_lettings_site .
       - run:
-        command: docker tag image_oc_lettings_site $test1/$DOCKER_REPO:$CIRCLE_SHA1
+          name: Login to DockerHub
+          command: docker tag image_oc_lettings_site $test1/$DOCKER_REPO:$CIRCLE_SHA1
       - run:
-        command: docker push $test1/$DOCKER_REPO:$CIRCLE_SHA1
+          name: Login to DockerHub
+          command: docker push $test1/$DOCKER_REPO:$CIRCLE_SHA1
 
 
 
