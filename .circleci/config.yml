@@ -54,9 +54,9 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-      - run:
-          name: Build Docker image
-          command: docker build -t docker-oc-lettings:0.1 .
+#      - run:
+#          name: Build Docker image
+#          command: docker build -t docker-oc-lettings:0.1 .
       - run:
           name: Login to DockerHub
           command: docker login --username $DOCKERHUB_USERNAME --password $DOCKERHUB_PASSWORD
