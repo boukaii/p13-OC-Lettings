@@ -69,16 +69,18 @@ jobs:
       - run:
           name: Login to DockerHub
           command: docker build -t test1 .
-      - run:
-          name: Login to DockerHub
-          command: docker tag test1 $DOCKER_LOGIN/$DOCKER_REPO:$CIRCLE_SHA1
+#      - run:
+#          name: Login to DockerHub
+#          command: docker tag test1 $DOCKER_LOGIN/$DOCKER_REPO:test1
+#                  docker tag local-image:test1 new-repo:test1
       - run:
           name: Login to DockerHub
 #          command: docker push $test1/$DOCKER_REPO:$CIRCLE_SHA1
-          command: docker push boukaii/test1:tagname
-
-
-
+          command: docker push boukaii/test1:test1
+#
+#DOCKER_LOGIN
+#DOCKER_PASSWORD
+#
 
 
 
