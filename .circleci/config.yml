@@ -1,140 +1,8 @@
-#version: 2.1
-#orbs:
-#  python: circleci/python@1.5.0
-#workflows:
-#  sample:
-#    jobs:
-#      - build-and-test
-#      - build-and-push-dockerhub:
-#          filters:
-#            branches:
-#              only: master
-#          requires:
-#            - build-and-test
-#      - build-and-push-heroku:
-#          filters:
-#            branches:
-#              only: master
-#          requires:
-#            - build-and-push-dockerhub
-#jobs:
-#  build-and-test:
-#    docker:
-#      - image: cimg/python:3.10.2
-#    steps:
-#      - checkout
-#      - python/install-packages:
-#          pkg-manager: pip
-#          pip-dependency-file: requirements.txt
-#      - run:
-#          name: Run tests
-#          command: pytest
-#  build-and-push-dockerhub:
-#    docker:
-#      - image: cimg/python:3.10.2
-#    steps:
-#      - checkout
-#      - setup_remote_docker:
-#          docker_layer_caching: true
-##      - run:
-##          name: Build Docker image
-##          command: docker build -t docker-oc-lettings:0.1 .
-#      - run:
-#          name: Login to DockerHub
-#          command: docker login --username boukaii --password Qjkayb1993
-##      - run:
-##          name: Link to DockerHub
-##          command: docker tag docker-test_variable:0.1 $test_name/oc-lettings-site:$test_variable
-##      - run:
-##          name: push Docker image
-##          command: docker push $DOCKERHUB_USERNAME/oc-lettings-site:$CIRCLE_SHA1
-#      - run:
-#          name: Login to DockerHub
-#          command: docker build -t test1 .
-##      - run:
-##          name: Login to DockerHub
-##          command: docker tag test1 $DOCKER_LOGIN/$DOCKER_REPO:test1
-##                  docker tag local-image:test1 new-repo:test1
-#      - run:
-#          name: Login to DockerHub
-##          command: docker push $test1/$DOCKER_REPO:$CIRCLE_SHA1
-##          command: docker push $DOCKER_USER/$DOCKER_REPO:test1
-#          command: docker push $DOCKER_LOGIN/test1
-##
-##DOCKER_LOGIN
-##DOCKER_PASSWORD
-##
-#
-#
-#
-#
-#
-#
-#
-#
-#
-#  build-and-push-heroku:
-#    machine: true
-#    steps:
-#      - checkout
-#      - run:
-#          name: Setup Heroku
-#          command: curl https://cli-assets.heroku.com/install.sh | sh # run a script to set up Heroku
-#      - run:
-#          name: Build and push Docker image to Heroku
-#          command: |
-#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:login
-#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:push -a $HEROKU_APP_NAME web
-#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku container:release -a $HEROKU_APP_NAME web
-#      - run:
-#          name: Migrate database
-#          command: |
-#            HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# Use the latest 2.1 version of CircleCI pipeline process engine.
-# See: https://circleci.com/docs/2.0/configuration-reference
 version: 2.1
-
-# Orbs are reusable packages of CircleCI configuration that you may share across projects, enabling you to create encapsulated, parameterized commands, jobs, and executors that can be used across multiple projects.
-# See: https://circleci.com/docs/2.0/orb-intro/
 orbs:
-  # The python orb contains a set of prepackaged CircleCI configuration you can use repeatedly in your configuration files
-  # Orb commands and jobs help you with common scripting around a language/tool
-  # so you dont have to copy and paste it everywhere.
-  # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
-
-
-# Invoke jobs via workflows
-# See: https://circleci.com/docs/2.0/configuration-reference/#workflows
 workflows:
-  sample: # This is the name of the workflow, feel free to change it to better match your workflow.
-    # Inside the workflow, you define the jobs you want to run.
+  sample:
     jobs:
       - build-and-test
       - build-and-push-dockerhub:
@@ -150,9 +18,6 @@ workflows:
           requires:
             - build-and-push-dockerhub
 
-
-# Define a job to be invoked later in a workflow.
-# See: https://circleci.com/docs/2.0/configuration-reference/#jobs
 jobs:
   build-and-test:
     docker:
@@ -177,7 +42,7 @@ jobs:
           command: docker build -t docker-oc-lettings:0.1 .
       - run:
           name: Login to DockerHub
-          command: docker login --username boukaii --password Qjkayb1993
+          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
 #          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
       - run:
           name: Link to DockerHub
@@ -185,18 +50,6 @@ jobs:
       - run:
           name: push Docker image
           command: docker push boukaii/test1:$CIRCLE_SHA1
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
