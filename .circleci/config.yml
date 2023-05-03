@@ -181,10 +181,7 @@ jobs:
 #          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
       - run:
           name: Link to DockerHub
-#          command: docker tag docker-oc-lettings:0.1 boukaii/test1:$CIRCLE_SHA1
-          command: docker tag test1:latest boukaii/test1:latest
-
-
+          command: docker tag docker-oc-lettings:0.1 boukaii/test1:$CIRCLE_SHA1
       - run:
           name: push Docker image
           command: docker push boukaii/test1:$CIRCLE_SHA1
