@@ -42,28 +42,14 @@ jobs:
           command: docker build -t docker-oc-lettings:0.1 .
       - run:
           name: Login to DockerHub
-#          command: docker login --username boukaii --password Qjkayb1993
+          command: docker login --username boukaii --password Qjkayb1993
 #          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
-          command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN boukaii
-
       - run:
           name: Link to DockerHub
           command: docker tag docker-oc-lettings:0.1 boukaii/test1:$CIRCLE_SHA1
       - run:
           name: push Docker image
           command: docker push boukaii/test1:$CIRCLE_SHA1
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
