@@ -44,7 +44,7 @@ jobs:
           name: Login to DockerHub
 #          command: docker login --username boukaii --password Qjkayb1993
 #          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
-          command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN --password-stdin
+          command: echo $DOCKER_PASSWORD | docker login -u $DOCKER_LOGIN boukaii
 
       - run:
           name: Link to DockerHub
