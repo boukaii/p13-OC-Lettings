@@ -42,7 +42,7 @@ jobs:
           command: docker build -t docker-oc-lettings:0.1 .
       - run:
           name: Login to DockerHub
-          command: docker login --username DOCKER_LOGIN --password DOCKER_PASSWORD
+          command: docker login --username DOCKER_LOGIN --password-stdin DOCKER_PASSWORD
 
 #          command: docker login --username $DOCKER_LOGIN --password $DOCKER_PASSWORD
       - run:
