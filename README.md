@@ -1,3 +1,10 @@
+P13 : Mettez à l'échelle une application Django en utilisant une architecture modulaire
+
+
+
+
+
+
 ## Résumé
 
 Site web d'Orange County Lettings
@@ -75,3 +82,37 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 - Pour activer l'environnement virtuel, `.\venv\Scripts\Activate.ps1` 
 - Remplacer `which <my-command>` par `(Get-Command <my-command>).Path`
+
+
+
+
+
+### Commandes depuis le terminal:
+
+
+### IMAGES EXISTANTE:
+
+- docker images    					(pour voir toutes nos images)
+- docker ps              			(pour voir nos conteneurs)
+- docker pull <nom_de_l'image>      (télécharger une image existante)
+
+- docker run -it <nom_de_l'image>   (tourner le conteneur de cette image)
+- docker stop <id_de_l'image> 		(pour stoper le conteneur)
+
+
+### IMAGES QUE L'ON VA CREER:
+
+- Construire fichier Dockerfile
+
+- Puis construire notre image 
+docker build -t <test_image> . (pour créer notre image)  (Fichier Dockerfile)
+docker images                  (pour vérifier que notre image est bien construite)
+docker run -d -p 8080:8080 <test_image> (pour lancer l'image)
+
+
+
+- Permet de créer le lien entre l'image et le REPO DUCKER créer
+docker tag docker-oc-lettings:0.1 boukaii/test1:$CIRCLE_SHA1
+
+- Envoyer notre image vers notre REPO DOCKER HUB
+docker push boukaii/<test_image>:$CIRCLE_SHA1
