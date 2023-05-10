@@ -10,13 +10,13 @@ workflows:
             branches:
               only: master
           requires:
-            - build-and-test
+            - test
       - deployment:
           filters:
             branches:
               only: master
           requires:
-            - build-and-push-dockerhub
+            - push-dockerhub
 
 jobs:
   test:
