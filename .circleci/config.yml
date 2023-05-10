@@ -4,14 +4,14 @@ orbs:
 workflows:
   sample:
     jobs:
-      - build-and-test
-      - build-and-push-dockerhub:
+      - test
+      - push-dockerhub:
           filters:
             branches:
               only: master
           requires:
             - build-and-test
-      - build-and-push-heroku:
+      - deployment:
           filters:
             branches:
               only: master
@@ -19,7 +19,7 @@ workflows:
             - build-and-push-dockerhub
 
 jobs:
-  build-and-test:
+  test:
     docker:
       - image: cimg/python:3.10.2
     steps:
@@ -30,7 +30,7 @@ jobs:
       - run:
           name: Run tests
           command: pytest
-  build-and-push-dockerhub:
+  push-dockerhub:
     docker:
       - image: cimg/python:3.10.2
     steps:
@@ -54,7 +54,7 @@ jobs:
 
 
 
-  build-and-push-heroku:
+  deployment:
     machine: true
     steps:
       - checkout
