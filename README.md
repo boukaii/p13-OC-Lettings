@@ -86,33 +86,85 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 
 
+### Conditions préalables :
 
-### Commandes depuis le terminal:
+Il est nécessaire de créer plusieurs comptes afin de pouvoir effectuer le déploiement et l'intégration continue de l'application
 
-
-### IMAGES EXISTANTE:
-
-- docker images    					(pour voir toutes nos images)
-- docker ps              			(pour voir nos conteneurs)
-- docker pull <nom_de_l'image>      (télécharger une image existante)
-
-- docker run -it <nom_de_l'image>   (tourner le conteneur de cette image)
-- docker stop <id_de_l'image> 		(pour stoper le conteneur)
-
-
-### IMAGES QUE L'ON VA CREER:
-
-- Construire fichier Dockerfile
-
-- Puis construire notre image 
-docker build -t <test_image> . (pour créer notre image)  (Fichier Dockerfile)
-docker images                  (pour vérifier que notre image est bien construite)
-docker run -d -p 8080:8080 <test_image> (pour lancer l'image)
+- Compte GitHub
+- Compte CircleCI
+- Compte Docker
+- Compte Heroku
+- Compte Sentry
 
 
 
-- Permet de créer le lien entre l'image et le REPO DUCKER créer
-docker tag docker-oc-lettings:0.1 boukaii/test1:$CIRCLE_SHA1
+### Explications :
 
-- Envoyer notre image vers notre REPO DOCKER HUB
-docker push boukaii/<test_image>:$CIRCLE_SHA1
+Une fois le pipeline CircleCi est configuré, le déploiement sera automatiquement a chaque push commit effectué.
+
+- Les tests seront effectuer automatiquements lors du Push git.
+
+- SI les tests sont validés:
+  - Une image Docker est créer puis pousser vers DockerHub
+
+- SI l'étape précédente est réussit:
+  - Le déploiement s'effectue sur Heroku
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+### Images que l'ont va créer en local : (Docker)
+
+
+- Se connecter a docker :
+docker login            
+
+- Création de l'image :
+docker build -t <nom_de_l'image>        
+
+- Vérifie création de l'image :
+docker images                             
+
+ - Envoi vers docker :
+docker push boukaii/<nom_de_l'image>     
+
+ - Récupère depuis docker :
+docker pull <nom_de_l'image>             
+
+
+   
+
+###  Déploiement :  (Heroku) (nom de l'application =  deploitest )
+
+- heroku login
+- heroku create <nom_application>
+- heroku open
+
+Puis dans CERCLECI :
+
+- on ajoute deux variables a notre projet
+	- HEROKU-API_KEY    est l'API Key récupérée sur votre compte Heroku.
+	- HEROKU_APP_NAME   est le nom que vous avez choisi pour votre application sur Heroku.
+
+
+
+
+
+
+une fois 
+https://<nom_de_mon_app>.herokuapp.com/
+
+
+
+
+
