@@ -100,7 +100,7 @@ Il est nécessaire de créer plusieurs comptes afin de pouvoir effectuer le dép
 
 ### Explications :
 
-Une fois le pipeline CircleCi est configuré, le déploiement sera automatiquement a chaque push commit effectué.
+Une fois le pipeline CircleCi est configuré, le déploiement se fera automatiquement a chaque push commit effectué.
 
 - Les tests seront effectuer automatiquements lors du Push git.
 
@@ -156,11 +156,7 @@ Puis dans CERCLECI :
 	- HEROKU-API_KEY    est l'API Key récupérée sur votre compte Heroku.
 	- HEROKU_APP_NAME   est le nom que vous avez choisi pour votre application sur Heroku.
 
-
-
-
-
-
+    
 une fois 
 https://<nom_de_mon_app>.herokuapp.com/
 
