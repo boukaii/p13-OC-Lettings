@@ -1,4 +1,4 @@
-P13 : Mettez à l'échelle une application Django en utilisant une architecture modulaire
+# P13 : Mettez à l'échelle une application Django en utilisant une architecture modulaire
 
 
 
@@ -86,19 +86,14 @@ Utilisation de PowerShell, comme ci-dessus sauf :
 
 
 
-### Conditions préalables :
-
-Il est nécessaire de créer plusieurs comptes afin de pouvoir effectuer le déploiement et l'intégration continue de l'application
-
-- Compte GitHub
-- Compte CircleCI
-- Compte Docker
-- Compte Heroku
-- Compte Sentry
 
 
 
-### Explications :
+
+
+
+# Explications :
+
 
 Une fois le pipeline CircleCi est configuré, le déploiement se fera automatiquement a chaque push commit effectué.
 
@@ -110,6 +105,50 @@ Une fois le pipeline CircleCi est configuré, le déploiement se fera automatiqu
 - SI l'étape précédente est réussit:
   - Le déploiement s'effectue sur Heroku
 
+    
+    
+### Conditions préalables :
+
+
+
+Il est nécessaire de créer plusieurs comptes afin de pouvoir effectuer le déploiement et l'intégration continue de l'application
+
+- Compte GitHub
+- Compte CircleCI
+- Compte Docker
+- Compte Heroku
+- Compte Sentry
+
+
+
+
+### Une fois les comptes utilisateurs créer :
+
+
+- Récupérer sur DockerHub l'acces Token.
+- Récupérer sur Heroku l'API Key dans les settings de votre compte Heroku.
+- Récupérer le DSN du projet Sentry.
+
+
+### Puis créer un nouveau projet Heroku depuis votre terminal :
+
+`heroku create <nom_de_mon_app>`
+
+Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre variables d'environnements.
+
+### 6 variables devront etre présente
+
+- DOCKER_LOGIN = Votre username sur DockerHub.
+- DOCKER_PASSWORD = Votre Token acces sur DockerHub.
+- HEROKU-API_KEY = l'API Key récupérée sur votre compte Heroku.
+- HEROKU_APP_NAME = Nom que vous avez choisi pour votre application sur Heroku.
+- SECRET_KEY = Secret key de production de settings.py de l'application Django.
+- SENTRY_DSN = DSN de votre projet Sentry.
+
+
+### Une fois un commit effectuer, le site est alors disponible sur Heroku:
+
+`https://<nom_de_mon_app>.herokuapp.com/`
 
 
 
@@ -118,8 +157,7 @@ Une fois le pipeline CircleCi est configuré, le déploiement se fera automatiqu
 
 
 
-
-
+# Méthodes "manuel" :
 
 
 
@@ -139,8 +177,10 @@ docker images
 docker push boukaii/<nom_de_l'image>     
 
  - Récupère depuis docker :
-docker pull <nom_de_l'image>             
+docker pull <nom_de_l'image>          
 
+
+run
 
    
 
@@ -149,17 +189,6 @@ docker pull <nom_de_l'image>
 - heroku login
 - heroku create <nom_application>
 - heroku open
-
-Puis dans CERCLECI :
-
-- on ajoute deux variables a notre projet
-	- HEROKU-API_KEY    est l'API Key récupérée sur votre compte Heroku.
-	- HEROKU_APP_NAME   est le nom que vous avez choisi pour votre application sur Heroku.
-
-    
-une fois 
-https://<nom_de_mon_app>.herokuapp.com/
-
 
 
 
