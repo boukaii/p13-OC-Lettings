@@ -5,18 +5,18 @@ workflows:
   sample:
     jobs:
       - build-and-test
-      - build-and-push-dockerhub:
+      - push-dockerhub:
           filters:
             branches:
               only: master
           requires:
             - build-and-test
-      - build-and-push-heroku:
+      - deployment-heroku:
           filters:
             branches:
               only: master
           requires:
-            - build-and-push-dockerhub
+            - push-dockerhub
 
 
 jobs:
@@ -31,7 +31,7 @@ jobs:
       - run:
           name: Run tests
           command: pytest
-  build-and-push-dockerhub:
+  push-dockerhub:
     docker:
       - image: cimg/python:3.10.2
     steps:
@@ -43,8 +43,6 @@ jobs:
           command: docker build -t docker-oc-lettings:0.1 .
       - run:
           name: Login to DockerHub
-#          command: docker login --username boukaii --password-
-
           command: echo $DOCKER_PASSWORD | docker login --username $DOCKER_LOGIN --password-stdin
       - run:
           name: Link to DockerHub
@@ -53,10 +51,7 @@ jobs:
           name: push Docker image
           command: docker push boukaii/test1:$CIRCLE_SHA1
 
-
-
-
-  build-and-push-heroku:
+  deployment-heroku:
     machine: true
     steps:
       - checkout
