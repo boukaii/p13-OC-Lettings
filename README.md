@@ -153,21 +153,17 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 
 
 
-docker pull boukaii/test1:310d789f682c6f53148eacc70ef85cb5f5804bae
-  
+# Commande pull :
 
-
-docker run -d -p 8080:8080 <test_image>
+`docker pull boukaii/test1:4fb6abba1f850e4d1fd95eb32ff43534edb8b681`
 
 # Récupération de l'image du registre (Docker) :
 
 
-`docker run -d -p 8000:8000 <nom_de_l'image>`
+- `docker run -d -p 8080:8080 <nom_de_l'image>`
 
-### Vous pouvez ensuite vous rendre à l'adresse http://127.0.0.1:8000/
-
-
-
+### Vous pouvez ensuite vous rendre à l'adresse :
+- http://127.0.0.1:8080/ ou http://localhost:8080/
 
 
 
@@ -178,38 +174,58 @@ docker run -d -p 8080:8080 <test_image>
 
 
 
-# Méthode "manuel" :
 
+[//]: # ()
+[//]: # (# Méthode "manuel" :)
 
+[//]: # ()
+[//]: # ()
+[//]: # ()
+[//]: # (### Images que l'ont va créer en local : &#40;Docker&#41;)
 
-### Images que l'ont va créer en local : (Docker)
+[//]: # ()
+[//]: # ()
+[//]: # (- Se connecter a docker :)
 
+[//]: # (`docker login`           )
 
-- Se connecter a docker :
-`docker login`           
+[//]: # ()
+[//]: # (- Création de l'image :)
 
-- Création de l'image :
-`docker build -t <nom_de_l'image> .`    
+[//]: # (`docker build -t <nom_de_l'image> .`    )
 
-- Vérifie création de l'image :
-`docker images`  
+[//]: # ()
+[//]: # (- Vérifie création de l'image :)
 
- - Envoi vers docker :
-`docker push boukaii/<nom_de_l'image>`  
+[//]: # (`docker images`  )
 
- - Récupère depuis docker :
-`docker pull <nom_de_l'image>`     
+[//]: # ()
+[//]: # ( - Envoi vers docker :)
 
-- Pour lancer l'image :
-`docker run -d -p 8080:8080 <nom_de_l'image>`
+[//]: # (`docker push boukaii/<nom_de_l'image>`  )
 
-   
+[//]: # ()
+[//]: # ( - Récupère depuis docker :)
 
-###  Déploiement :  (Heroku) (nom de l'application =  deploitest )
+[//]: # (`docker pull <nom_de_l'image>`     )
 
-- `heroku login`
-- `heroku create <nom_application>`
-- `heroku open`
+[//]: # ()
+[//]: # (- Pour lancer l'image :)
 
+[//]: # (`docker run -d -p 8080:8080 <nom_de_l'image>`)
+
+[//]: # ()
+[//]: # (   )
+[//]: # ()
+[//]: # (###  Déploiement :  &#40;Heroku&#41; &#40;nom de l'application =  deploitest &#41;)
+
+[//]: # ()
+[//]: # (- `heroku login`)
+
+[//]: # (- `heroku create <nom_application>`)
+
+[//]: # (- `heroku open`)
+
+[//]: # ()
 
 
