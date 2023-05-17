@@ -151,6 +151,32 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 `https://<nom_de_mon_app>.herokuapp.com/`
 
 
+
+
+docker pull boukaii/test1:310d789f682c6f53148eacc70ef85cb5f5804bae
+  
+
+
+docker run -d -p 8080:8080 <test_image>
+
+# Récupération de l'image du registre (Docker) :
+
+
+`docker run -d -p 8000:8000 <nom_de_l'image>`
+
+### Vous pouvez ensuite vous rendre à l'adresse http://127.0.0.1:8000/
+
+
+
+
+
+
+
+
+
+
+
+
 # Méthode "manuel" :
 
 
@@ -165,13 +191,7 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 `docker build -t <nom_de_l'image> .`    
 
 - Vérifie création de l'image :
-`docker images`                   
-
-
-docker run -d -p 8080:8080 <test_image>
-
-
-
+`docker images`  
 
  - Envoi vers docker :
 `docker push boukaii/<nom_de_l'image>`  
