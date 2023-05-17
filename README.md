@@ -167,6 +167,11 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 - Vérifie création de l'image :
 `docker images`                   
 
+
+docker run -d -p 8080:8080 <test_image>
+
+
+
  - Envoi vers docker :
 `docker push boukaii/<nom_de_l'image>`  
 
