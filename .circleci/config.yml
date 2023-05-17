@@ -68,3 +68,4 @@ jobs:
           name: Migrate database
           command: |
             HEROKU_API_KEY=${HEROKU_API_KEY} heroku run python manage.py migrate -a $HEROKU_APP_NAME
+
