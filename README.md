@@ -177,6 +177,7 @@ docker run -d -p 8080:8080 <test_image>
 
 
 
+
 # Méthode "manuel" :
 
 
@@ -209,4 +210,6 @@ docker run -d -p 8080:8080 <test_image>
 - `heroku login`
 - `heroku create <nom_application>`
 - `heroku open`
+
+
 
