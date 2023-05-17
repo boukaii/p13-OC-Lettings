@@ -151,13 +151,7 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 `https://<nom_de_mon_app>.herokuapp.com/`
 
 
-
-
-
-
-
-
-# Méthodes "manuel" :
+# Méthode "manuel" :
 
 
 
@@ -165,30 +159,30 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 
 
 - Se connecter a docker :
-docker login            
+`docker login`           
 
 - Création de l'image :
-docker build -t <nom_de_l'image>        
+`docker build -t <nom_de_l'image>`    
 
 - Vérifie création de l'image :
-docker images                             
+`docker images`                   
 
  - Envoi vers docker :
-docker push boukaii/<nom_de_l'image>     
+`docker push boukaii/<nom_de_l'image>`  
 
  - Récupère depuis docker :
-docker pull <nom_de_l'image>          
+`docker pull <nom_de_l'image>`     
 
-
-run
+- Pour lancer l'image :
+`docker run -d -p 8080:8080 <nom_de_l'image>`
 
    
 
 ###  Déploiement :  (Heroku) (nom de l'application =  deploitest )
 
-- heroku login
-- heroku create <nom_application>
-- heroku open
+- `heroku login`
+- `heroku create <nom_application>`
+- `heroku open`
 
 
 
