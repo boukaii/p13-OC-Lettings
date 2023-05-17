@@ -172,6 +172,7 @@ docker run -d -p 8080:8080 <test_image>
 
 
 
+
  - Envoi vers docker :
 `docker push boukaii/<nom_de_l'image>`  
 
