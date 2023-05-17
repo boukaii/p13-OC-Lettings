@@ -162,7 +162,7 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 `docker login`           
 
 - Création de l'image :
-`docker build -t <nom_de_l'image>`    
+`docker build -t <nom_de_l'image> .`    
 
 - Vérifie création de l'image :
 `docker images`                   
@@ -183,7 +183,4 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 - `heroku login`
 - `heroku create <nom_application>`
 - `heroku open`
-
-
-
 
