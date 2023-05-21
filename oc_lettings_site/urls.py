@@ -16,3 +16,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('sentry-debug/', trigger_error),
 ]
+
