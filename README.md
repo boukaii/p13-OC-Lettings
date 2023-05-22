@@ -151,7 +151,6 @@ Puis allez dans les settings de CircleCi de votre projet afin d'ajouter votre va
 `https://<nom_de_mon_app>.herokuapp.com/`
 
 
-
 # Commande pull (télécharger l'image depuis notre repo-docker:
 
 - `docker pull boukaii/test1:4fb6abba1f850e4d1fd95eb32ff43534edb8b681`
