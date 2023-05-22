@@ -133,24 +133,9 @@ DEFAULT_AUTO_FIELD = "django.db.models.AutoField"
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
 
 
-# SENTRY_DSN = os.environ.get('SENTRY_DSN')
-# sentry_sdk.init(
-#     dsn=SENTRY_DSN,
-#     integrations=[DjangoIntegration()],
-#
-#     # Set traces_sample_rate to 1.0 to capture 100%
-#     # of transactions for performance monitoring.
-#     # We recommend adjusting this value in production.
-#     traces_sample_rate=1.0,
-#
-#     # If you wish to associate users to errors (assuming you are using
-#     # django.contrib.auth) you may enable sending PII data.
-#     send_default_pii=True
-# )
-
+SENTRY_DSN = os.environ.get('SENTRY_DSN', "https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432")
 sentry_sdk.init(
-    dsn="https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432",
-    # dsn=os.getenv('SENTRY_DNS', "https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432"),
+    dsn=SENTRY_DSN,
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
@@ -162,3 +147,22 @@ sentry_sdk.init(
     # django.contrib.auth) you may enable sending PII data.
     send_default_pii=True
 )
+
+
+# sentry_sdk.init(
+#     # dsn="https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432",
+#
+#     dsn=os.getenv('SENTRY_DSN', "https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432"),
+#
+#
+#     integrations=[DjangoIntegration()],
+#
+#     # Set traces_sample_rate to 1.0 to capture 100%
+#     # of transactions for performance monitoring.
+#     # We recommend adjusting this value in production.
+#     traces_sample_rate=1.0,
+#
+#     # If you wish to associate users to errors (assuming you are using
+#     # django.contrib.auth) you may enable sending PII data.
+#     send_default_pii=True
+# )
