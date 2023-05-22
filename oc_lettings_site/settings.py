@@ -13,7 +13,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+# SECRET_KEY = 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s'
+
+SECRET_KEY = os.getenv('SECRET_KEY', 'fp$9^593hsriajg$_%=5trot9g!1qa@ew(o-1#@=&4%=hp46(s')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -144,8 +147,10 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '.herokuapp.com']
 #     # django.contrib.auth) you may enable sending PII data.
 #     send_default_pii=True
 # )
+
 sentry_sdk.init(
-    dsn=os.getenv('SENTRY_DNS'),
+    dsn="https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432",
+    # dsn=os.getenv('SENTRY_DNS', "https://8f441e6371e94a39a41248282c5bc371@o4505115962245120.ingest.sentry.io/4505115968274432"),
     integrations=[DjangoIntegration()],
 
     # Set traces_sample_rate to 1.0 to capture 100%
